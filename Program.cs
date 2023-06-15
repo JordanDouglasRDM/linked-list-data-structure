@@ -1,14 +1,26 @@
-﻿tp_no Remove(ref tp_no t)
+﻿void Excluir(tp_no lista, string nome_procurado, ref tp_no atual, ref tp_no anterior)
 {
-    tp_no no = null;
-    if (t != null){
-        no = t;
-        t = t.prox;
-        no.prox = null;
-    }
-    return no;
+    Consulta(lista, nome_procurado, ref atual, ref anterior);
+        if (atual != null){
+            if(atual == lista){
+                lista = lista.prox;
+                atual.prox = null;
+            }
+            else if(atual.prox == null){
+                anterior.prox = null;
+            }
+            else{
+                anterior.prox = atual.prox;
+                atual.prox = null;
+            }
+            System.Console.WriteLine("Removido com sucesso.");
+            Console.ReadKey();
+        }
+        else{
+            System.Console.WriteLine("Nome não encontrado");
+            Console.ReadKey();
+        }
 }
-
 void Insere(ref tp_no t, string n, string i, string w)
 {
     tp_no no = new tp_no();
@@ -89,7 +101,6 @@ while(op  >= 1 && op <= 4){
     else if(op == 2){
         System.Console.WriteLine("Qual nome você procura ?");
         nome_procurado = Console.ReadLine();
-
         Consulta(lista, nome_procurado, ref atual, ref anterior);
         if(atual != null){   
             System.Console.WriteLine("Dados atuais");
@@ -113,27 +124,7 @@ while(op  >= 1 && op <= 4){
     else if(op == 3){
     System.Console.WriteLine("Qual nome você procura ?");
     nome_procurado = Console.ReadLine();
-
-    Consulta(lista, nome_procurado, ref atual, ref anterior);
-    if (atual != null){
-        if(atual == lista){
-            lista = lista.prox;
-            atual.prox = null;
-        }
-        else if(atual.prox == null){
-            anterior.prox = null;
-        }
-        else{
-            anterior.prox = atual.prox;
-            atual.prox = null;
-        }
-        System.Console.WriteLine("Removido com sucesso.");
-        Console.ReadKey();
-    }
-    else{
-        System.Console.WriteLine("Nome não encontrado");
-        Console.ReadKey();
-    }      
+    Excluir(lista, nome_procurado, ref atual, ref anterior);
     }
     else if(op == 4){
         Exibir(lista);
